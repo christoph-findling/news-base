@@ -1,0 +1,53 @@
+//MAIN VARS
+$mainFont: roboto;
+$pageBackground: #fff;
+
+//HEADER STYLES
+$headerBackground: lightgrey;
+$headerHeight: 2;
+$headerPosition: fixed;
+
+//MAIN CONTAINER STYLES
+$mainContainerMT: 2;
+
+//BUTTON STYLES
+$button-font: "arial";
+
+//FOOTER STYLES
+$footer-color: rgb(25, 98, 158);
+
+//-------WIDGET STYLES---------
+
+//NAV
+$navLogoSize: 1.6;
+$navHeight: 2.5;
+$navBurgerSize: 1.5;
+$navColor: white;
+$navBackgroundColor: rgb(25, 98, 158);
+
+$navSideDrawerBackground: $navBackgroundColor;
+$navSideDrawerWidth: 10;
+$navSideDrawerFontSize: 1.5;
+
+//---HOME POST IMG STYLES---
+// imgCategory
+$imgCategoryFont: $mainFont;
+$imgCategoryBackground: rgba(77, 114, 126, 0.9);
+$imgCategoryColor: white;
+// imgTitle
+$imgTitleBackground: $imgCategoryBackground;
+$imgTitleFontSize: 1.2;
+$imgTitleFontWeight: 600;
+$imgTitleColor: white;
+// imgDate
+$imgDateFontSize: 0.8;
+$imgDateColor: white;
+//imgAuthor
+$imgAuthorFontSize: $imgDateFontSize;
+$imgAuthorColor: white;
+
+//---ARTICLE---
+$articleLineHeight: 1.5;
+$articleFontSize: 1.2;
+
+$articleImgCategoryFontSize: 1.5;

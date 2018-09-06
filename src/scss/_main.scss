@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  background: $pageBackground;
+  font-family: $mainFont;
+}
+
+.main_container {
+  max-width: $row-max-width;
+  margin: 0 auto;
+  @include rem(margin-top, $navHeight);
+}
+
+//HOME STYLES
+.home_container {
+  @include breakpoint(large) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  @include breakpoint(xxlarge) {
+    grid-template-columns: 33.3333% 33.3333% 33.3333%;
+  }
+}
+
+// HOME POST IMG STYLES
+.home_news_container {
+  @include border(all, 0.2, solid, white);
+  box-sizing: border-box;
+}
+.imageContainer {
+  position: relative;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: auto 130% !important;
+
+  @include rem(height, 16);
+  @include breakpoint(medium) {
+    @include rem(height, 20);
+    background-size: auto 140% !important;
+  }
+  @include breakpoint(large) {
+    background-size: auto 100% !important;
+  }
+}
+.imgDate {
+  @include rem(font-size, $imgDateFontSize);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  @include rem(padding, 0.3 0.8);
+  color: $imgDateColor;
+}
+.imgAuthor {
+  @include rem(font-size, $imgAuthorFontSize);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include rem(padding, 0.3 0.8);
+  color: $imgAuthorColor;
+}

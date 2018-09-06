@@ -1,0 +1,10 @@
+.footer {
+  @include rem(margin-top, 1);
+  @include rem(padding, 0.8);
+  background-color: $footer-color;
+}
+
+.footer__text {
+  text-align: center;
+  color: $navColor;
+}

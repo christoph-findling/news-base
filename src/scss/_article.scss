@@ -1,0 +1,37 @@
+.article__container {
+  .img__container {
+    position: relative;
+    @include rem(height, 20);
+    width: 100%;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .article__content {
+    @include rem(padding, 1);
+  }
+
+  .article__title {
+    @include rem(font-size, 1.5);
+    font-weight: 600;
+    @include rem(padding-bottom, 0.5);
+    @include rem(margin-bottom, 0.5);
+    @include border(bottom, 0.1, solid, lightgrey);
+  }
+  .article__text {
+    @include rem(line-height, $articleLineHeight);
+    @include rem(font-size, $articleFontSize);
+  }
+  .img_category {
+    @include rem(font-size, $articleImgCategoryFontSize);
+    @include rem(padding, 1);
+    bottom: 0;
+    position: absolute;
+  }
+}
+
+.article__authordate {
+  display: flex;
+  @include rem(margin-bottom, 1.5);
+}

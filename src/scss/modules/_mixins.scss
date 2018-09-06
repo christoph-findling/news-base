@@ -1,0 +1,133 @@
+// ---------------------------
+// REM MIXIN
+// ---------------------------
+
+// Mixin that allows to specify arbitrary CSS properties with
+// unitless numbers. The output has rem unit with pixel fallback.
+// Shorthand assignments are supported too!
+
+$base_line: 1;
+
+@mixin rem($property, $values, $important:"") {
+  // Placeholder variables
+  $shorthand_px:  "";
+  $shorthand_rem: "";
+
+  // Parameter $values might be a list of elements
+  @each $value in $values
+  {
+    // Current value is a valid number and greater than 0
+    @if $value != auto and $value != 0 and $value != inherit
+    {
+      // Add 'px' and 'rm' to the current value and store in
+      // placeholder variables
+      $shorthand_px: #{ $shorthand_px + " " + $value * $base_line * 10 + px };
+      $shorthand_rem: #{ $shorthand_rem + " " + $value + rem };
+    }
+    // Current value is 'auto' or 0
+    @else
+    {
+      // Add only 'auto' or 0 to the placeholder variables
+      $shorthand_px: #{ $shorthand_px + " " + $value };
+      $shorthand_rem: #{ $shorthand_rem + " " + $value };
+    }
+  }
+
+  @if $important == !important
+  {
+    $shorthand_px: #{ $shorthand_px + " !important" };
+    $shorthand_rem: #{ $shorthand_rem + " !important" };
+  }
+
+  // Output the CSS property in pixels and rems
+  #{$property}:$shorthand_px;
+  #{$property}:$shorthand_rem;
+}
+
+// ---------------------------
+// BORDERS
+// ---------------------------
+
+// Mixin that creates borders in scss with the rem function
+@mixin border($side, $width, $style, $color) {
+   @if $side == "all" {
+     border: 0 $style $color;
+     @include rem("border-width", $width);
+   } @else {
+     #{"border-"+$side}: 0 $style $color;
+     @include rem(#{"border-"+$side+"-width"}, $width);
+   }
+}
+
+
+// ---------------------------
+// BREAKPOINTS
+// ---------------------------
+
+@mixin breakpoint($point, $value: 0) {
+
+  @if $point == medium {
+    @media (min-width: $medium-query) { @content; }
+  }
+
+  @else if $point == large {
+    @media (min-width: $large-query) { @content; }
+  }
+
+  @else if $point == xlarge {
+    @media (min-width: $xlarge-query) { @content; }
+  }
+  
+  @else if $point == xxlarge {
+    @media (min-width: $xxlarge-query) { @content; }
+  }
+
+  @else if $point == xxxlarge {
+    @media (min-width: $xxxlarge-query) { @content; }
+  }
+
+  @else if $point == xxxxlarge {
+    @media (min-width: $xxxxlarge-query) { @content; }
+  }
+
+  @else {
+    @media ($point: $value) { @content; }
+  }
+}
+
+@mixin between-breakpoints($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin delay-sequence($base, $add, $min, $max) {
+  @for $i from $min through $max {
+    &:nth-child(#{$i}) {
+      transition-delay: #{$add + $add * $i}s;
+    }
+  }
+}
+
+
+// ---------------------------
+// CLEARFIX
+// ---------------------------
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+  &:before,
+  &:after {
+    flex-basis: 0;
+    order: 1;
+  }
+}
