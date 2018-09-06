@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer__text">
-        {Year} &copy; {SITE_NAME}
+        {Year} &copy; by {SITE_NAME}
       </div>
     </div>
   );
