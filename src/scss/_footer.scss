@@ -1,5 +1,5 @@
 .footer {
-  @include rem(margin-top, 1);
+  @include rem(height, $footerHeight);
   @include rem(padding, 0.8);
   background-color: $footer-color;
 }

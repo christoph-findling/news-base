@@ -28,8 +28,12 @@ class Header extends Component {
     }
     return (
       <div>
-        <Nav sideDrawerClickHandler={this.sideDrawerToggleClickHandler} />
+        <Nav
+          user={this.props.user}
+          sideDrawerClickHandler={this.sideDrawerToggleClickHandler}
+        />
         <NavSideDrawer
+          user={this.props.user}
           visible={this.state.showSideDrawer}
           sideDrawerClickHandler={this.sideDrawerToggleClickHandler}
         />

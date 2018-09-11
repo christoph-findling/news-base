@@ -9,7 +9,6 @@ import SingleArticle from "../components/single_article";
 class Article extends Component {
   componentDidMount() {
     this.props.getArticle(this.props.match.params.id);
-    console.log(this.props.children);
   }
 
   componentWillUnmount() {

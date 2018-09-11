@@ -8,8 +8,12 @@ body {
   max-width: $row-max-width;
   margin: 0 auto;
   @include rem(margin-top, $navHeight);
+  min-height: calc(100vh - #{$navHeight * 2 + 0.1}rem);
 }
 
+.relative {
+  position: relative;
+}
 //HOME STYLES
 .home_container {
   @include breakpoint(large) {
@@ -30,16 +34,16 @@ body {
   position: relative;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  background-size: auto 130% !important;
+  background-size: cover !important;
 
   @include rem(height, 16);
-  @include breakpoint(medium) {
-    @include rem(height, 20);
-    background-size: auto 140% !important;
-  }
-  @include breakpoint(large) {
-    background-size: auto 100% !important;
-  }
+  // @include breakpoint(medium) {
+  //   @include rem(height, 20);
+  //   background-size: auto 140% !important;
+  // }
+  // @include breakpoint(large) {
+  //   background-size: auto 100% !important;
+  // }
 }
 .imgDate {
   @include rem(font-size, $imgDateFontSize);
@@ -56,4 +60,11 @@ body {
   left: 0;
   @include rem(padding, 0.3 0.8);
   color: $imgAuthorColor;
+}
+
+//Profile Styles
+.profile__container {
+  margin: 0 auto;
+  text-align: center;
+  @include rem(padding, 1);
 }

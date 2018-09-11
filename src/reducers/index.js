@@ -7,7 +7,6 @@ export default function(state = {}, action) {
           ? [...state.posts, ...action.payload]
           : action.payload,
         start: action.startpoint,
-        end: action.endpoint,
         hasPosts: action.hasPosts
       };
     case "GET_ARTICLE":
@@ -19,6 +18,17 @@ export default function(state = {}, action) {
       return {
         ...state,
         article: null
+      };
+    case "REGISTER_USER":
+      return {
+        ...state,
+        loading: action.loading,
+        registerError: action.registerError
+      };
+    case "DELETE_ARTICLE":
+      return {
+        ...state,
+        posts: state.posts.filter(({ id }) => id !== action.id)
       };
     default:
       return state;

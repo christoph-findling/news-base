@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import ReactTimeAgo from "react-time-ago";
+import { CSSTransition } from "react-transition-group";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { getPosts } from "../actions";
+import { getPosts, deleteArticle } from "../actions";
 // import Button from "../widgets/buttons";
 import ImgCategory from "../widgets/imgCategory";
 import ImgTitle from "../widgets/imgTitle";
@@ -17,36 +19,63 @@ class HomeContainer extends Component {
   }
 
   loadmore = () => {
-    this.props.getPosts(this.props.end + 1, this.props.end + 3);
+    // this.props.getPosts(this.props.end + 1, this.props.end + 3);
+    this.props.getPosts(this.props.start);
   };
+
+  //  deleteArticle = id => {
+  //   this.props.deleteArticle(id);
+  // };
 
   render() {
     let posts = "";
     this.props.posts ? (posts = this.props.posts) : "";
     let items = [];
-
-    posts
-      ? posts.map((post, key) =>
-          items.push(
-            <Link key={key} to={`article/${post.id}`}>
-              <div key={key} className="home_news_container">
-                <div
-                  className="imageContainer"
-                  style={{ background: `url('/images/posts/${post.image}')` }}
+    if (posts) {
+      posts.map((post, key) =>
+        items.push(
+          <CSSTransition
+            in={true}
+            appear={true}
+            timeout={500}
+            classNames="fade"
+            key={key}
+          >
+            <div key={key} className="relative">
+              {this.props.user ? (
+                <button
+                  className="button__delete__article"
+                  id={post.id}
+                  onClick={() => this.props.deleteArticle(post.id)}
                 >
-                  <ImgCategory text={post.category} />
-                  <ImgTitle text={post.title} />
-                  <div className="imgAuthor">by {post.author}</div>
-                  <div className="imgDate">
-                    published{" "}
-                    <ReactTimeAgo locale="en">{post.date}</ReactTimeAgo>
+                  <FontAwesomeIcon icon="trash-alt" />
+                </button>
+              ) : (
+                ""
+              )}
+              <Link key={key} to={`article/${post.id}`}>
+                <div key={key} className="home_news_container">
+                  <div
+                    className="imageContainer"
+                    style={{
+                      background: `url('${post.imageURL}')`
+                    }}
+                  >
+                    <ImgCategory text={post.category} />
+                    <ImgTitle text={post.title} />
+                    <div className="imgAuthor">by {post.author}</div>
+                    <div className="imgDate">
+                      published{" "}
+                      <ReactTimeAgo locale="en">{post.date}</ReactTimeAgo>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          )
+              </Link>
+            </div>
+          </CSSTransition>
         )
-      : "";
+      );
+    }
 
     // <Button
     //   type="loadmorebutton"
@@ -97,8 +126,9 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
+    user: props.user,
     posts: state.posts,
     start: state.start,
     end: state.end,
@@ -107,7 +137,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getPosts }, dispatch);
+  return bindActionCreators({ getPosts, deleteArticle }, dispatch);
 }
 
 export default connect(

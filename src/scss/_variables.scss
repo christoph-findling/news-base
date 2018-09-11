@@ -4,16 +4,13 @@ $pageBackground: #fff;
 
 //HEADER STYLES
 $headerBackground: lightgrey;
-$headerHeight: 2;
 $headerPosition: fixed;
 
 //MAIN CONTAINER STYLES
 $mainContainerMT: 2;
 
-//BUTTON STYLES
-$button-font: "arial";
-
 //FOOTER STYLES
+$footerHeight: 1;
 $footer-color: rgb(25, 98, 158);
 
 //-------WIDGET STYLES---------
@@ -26,8 +23,8 @@ $navColor: white;
 $navBackgroundColor: rgb(25, 98, 158);
 
 $navSideDrawerBackground: $navBackgroundColor;
-$navSideDrawerWidth: 10;
-$navSideDrawerFontSize: 1.5;
+$navSideDrawerWidth: 13;
+$navSideDrawerFontSize: 2;
 
 //---HOME POST IMG STYLES---
 // imgCategory
@@ -51,3 +48,9 @@ $articleLineHeight: 1.5;
 $articleFontSize: 1.2;
 
 $articleImgCategoryFontSize: 1.5;
+
+//----FORM / INPUT / BUTTON----
+$inputFontSize: 1.5;
+$buttonSubmitFontSize: 1.4;
+
+$signinFormWidth: 20;

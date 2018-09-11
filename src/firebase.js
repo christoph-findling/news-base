@@ -1,18 +1,11 @@
 import * as firebase from "firebase";
+import { FIREBASE_CONFIG } from "./config";
 
-var config = {
-  apiKey: "AIzaSyCU2odZIzHPs_0pQ1rYHxXXJUB6I1fpqmU",
-  authDomain: "forms-test-512cb.firebaseapp.com",
-  databaseURL: "https://forms-test-512cb.firebaseio.com",
-  projectId: "forms-test-512cb",
-  storageBucket: "forms-test-512cb.appspot.com",
-  messagingSenderId: "332627957621"
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp(FIREBASE_CONFIG);
 
 const firebaseDB = firebase.database();
 const firebaseArticles = firebaseDB.ref("articles");
+const firebaseCategories = firebaseDB.ref("categories");
 
 const firebaseLooper = snapshot => {
   const data = [];
@@ -25,4 +18,10 @@ const firebaseLooper = snapshot => {
   return data;
 };
 
-export { firebase, firebaseDB, firebaseArticles, firebaseLooper };
+export {
+  firebase,
+  firebaseCategories,
+  firebaseDB,
+  firebaseArticles,
+  firebaseLooper
+};

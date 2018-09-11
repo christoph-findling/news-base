@@ -1,7 +1,6 @@
 //BUTTONS
 .red_button {
   width: 100%;
-  font-family: $button-font;
   @include rem(height, 3);
   @include rem(font-size, 1.5);
   @include rem(line-height, 3);
@@ -60,7 +59,7 @@
   position: fixed;
   width: 100%;
   background-color: $navBackgroundColor;
-  z-index: 2;
+  z-index: 10;
 }
 .nav {
   display: flex;
@@ -104,7 +103,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  z-index: 3;
+  z-index: 11;
   background-color: $navSideDrawerBackground;
   @include rem(width, $navSideDrawerWidth);
   transform: translateX(-100%);
@@ -113,6 +112,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
+    @include rem(padding-left, 1.5);
   }
   li {
     @include rem(margin-bottom, 0.5);
@@ -122,6 +122,7 @@
     font-weight: 600;
     color: $navColor;
     @include rem(font-size, $navSideDrawerFontSize);
+    @include rem(line-height, 2.5);
   }
 }
 
@@ -174,4 +175,76 @@
     @include rem(font-size, 1.2);
     font-weight: 600;
   }
+}
+
+// FORM STYLES
+
+.form__container {
+  display: flex;
+  form {
+    @include rem(width, $signinFormWidth);
+    margin: 0 auto;
+    @include rem(padding, 1);
+  }
+  .news__form {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    overflow: visible;
+    @include rem(padding, 0.5);
+    @include rem(font-size, $inputFontSize);
+    @include rem(margin, 0.5 0);
+    box-sizing: border-box;
+    border: 2px solid lightgray;
+    box-shadow: none;
+  }
+}
+
+.button__container {
+  @include rem(margin-top, 1);
+  display: flex;
+}
+.button__coral {
+  -webkit-appearance: button;
+  @include rem(padding, 0.5 1);
+  @include rem(font-size, $buttonSubmitFontSize);
+  background-color: coral;
+  box-sizing: border-box;
+  border: none;
+  color: white;
+}
+.button__delete__article {
+  text-transform: none;
+  font-weight: 400;
+  position: absolute;
+  z-index: 2;
+  @include rem(margin, 0.3);
+  @include rem(padding, 0.3 0.5);
+  @include rem(font-size, 1.5);
+  background-color: rgba(216, 30, 30, 0.9);
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  right: 0;
+
+  &:hover,
+  &:active {
+    color: rgb(255, 0, 0);
+    border-color: rgb(255, 0, 0);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+// NEWS EDITOR
+.rdw-editor-main {
+  background-color: white;
+  @include rem(margin, 1 0);
+  border: 2px solid lightgrey;
+}
+.form__error {
+  color: red;
 }
