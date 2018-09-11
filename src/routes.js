@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/home";
 import Article from "./containers/article_container";
-import Videos from "./components/videos";
 import Profile from "./components/profile";
 import Layout from "./components/layout";
 import Dashboard from "./components/dashboard";

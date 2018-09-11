@@ -16,7 +16,8 @@ const navSideDrawer = props => {
     },
     {
       text: "Profile",
-      link: "/profile"
+      link: "/profile",
+      login: true
     },
     {
       text: "Dashboard",

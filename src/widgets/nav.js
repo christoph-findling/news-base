@@ -22,9 +22,13 @@ const nav = props => {
             <li>
               <Link to="/news">NEWS</Link>
             </li>
-            <li>
-              <Link to="/profile">PROFILE</Link>
-            </li>
+            {props.user != null ? (
+              <li>
+                <Link to="/profile">PROFILE</Link>
+              </li>
+            ) : (
+              ""
+            )}
             {props.user != null ? (
               <li>
                 <Link
