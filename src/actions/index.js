@@ -7,7 +7,7 @@ import {
 
 export function getPosts(start, end) {
   let posts = [];
-  let startpoint = 0;
+  let startpoint = -9999999999999999;
   let hasPosts = true;
   if (start) {
     startpoint = start;
@@ -43,8 +43,8 @@ export function getPosts(start, end) {
 
   return dispatch => {
     firebaseArticles
-      .orderByChild("date")
-      .startAt(startpoint)
+      .orderByChild("negativedate")
+      .startAt(start)
       .limitToFirst(3)
       .once("value")
       .then(snapshot => {
@@ -61,7 +61,7 @@ export function getPosts(start, end) {
                 post["imageURL"] = url;
                 helper++;
                 if (helper >= posts.length) {
-                  start = posts[posts.length - 1].date + 1;
+                  start = posts[posts.length - 1].negativedate + 1;
                   dispatch({
                     type: "GET_ALL_POSTS",
                     payload: posts,
@@ -73,7 +73,7 @@ export function getPosts(start, end) {
           });
         } else {
           hasPosts = false;
-          start = 0;
+          start = -999999999;
           dispatch({
             type: "GET_ALL_POSTS",
             payload: posts,

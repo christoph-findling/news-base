@@ -24,6 +24,13 @@ const nav = props => {
             </li>
             {props.user != null ? (
               <li>
+                <Link to="/dashboard">DASHBOARD</Link>
+              </li>
+            ) : (
+              ""
+            )}
+            {props.user != null ? (
+              <li>
                 <Link to="/profile">PROFILE</Link>
               </li>
             ) : (

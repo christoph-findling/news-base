@@ -14,7 +14,6 @@ const Routes = props => {
       <Switch>
         <Route path="/articles" component={Article} />
         <Route path="/article/:id" component={Article} />
-        <Route path="/videos" component={Videos} />
         <Route
           path="/profile"
           render={routeProps => <Profile {...routeProps} {...props} />}

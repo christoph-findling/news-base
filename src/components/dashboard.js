@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import FormField from "../widgets/FormFields/formFields";
-import { firebaseCategories, firebaseArticles, firebase } from "../firebase";
+import {
+  firebaseCategories,
+  firebaseArticles,
+  firebase,
+  firebaseDB
+} from "../firebase";
 
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
@@ -178,21 +183,36 @@ class Dashboard extends Component {
           snapshot.forEach(childSnapshot => {
             articleId = childSnapshot.val().id;
           });
+          //set date to firebase timestamp
           dataToSubmit["date"] = firebase.database.ServerValue.TIMESTAMP;
+          dataToSubmit["negativedate"] = null;
+          //set new article ID
           articleId <= 0
             ? (dataToSubmit["id"] = 0)
             : (dataToSubmit["id"] = articleId + 1);
-          firebaseArticles
-            .push(dataToSubmit)
-            .then(article => {
-              this.props.history.push(`/`);
-            })
-            .catch(error => {
-              this.setState({
-                loading: false,
-                postError: error
+          //push new article
+          firebaseArticles.push(dataToSubmit).then(newArticle => {
+            //get newly pushed article for setting negative date
+            firebaseDB
+              .ref(`articles/${newArticle.key}`)
+              .once("value")
+              .then(snapshot => {
+                const article = snapshot.val();
+                const timestamp = article["date"] * -1;
+                firebaseDB
+                  .ref(`articles/${newArticle.key}`)
+                  .update({ negativedate: timestamp })
+                  .then(() => {
+                    this.props.history.push("/");
+                  });
+              })
+              .catch(error => {
+                this.setState({
+                  loading: false,
+                  postError: error
+                });
               });
-            });
+          });
         });
     } else {
       this.setState({
