@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { firebase } from "../firebase";
 
 import NavToggleButton from "./navToggleButton";
 import { SITE_NAME } from "../config";
@@ -24,6 +25,27 @@ const nav = props => {
             <li>
               <Link to="/profile">PROFILE</Link>
             </li>
+            {props.user != null ? (
+              <li>
+                <Link
+                  to="/"
+                  onClick={() => {
+                    firebase.auth().signOut();
+                  }}
+                >
+                  SIGN OUT
+                </Link>
+              </li>
+            ) : (
+              ""
+            )}
+            {props.user == null ? (
+              <li>
+                <Link to="/signin">SIGN IN</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       </nav>

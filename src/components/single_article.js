@@ -9,7 +9,7 @@ const singleArticle = props => {
     <div className="article__container">
       <div
         className="img__container"
-        style={{ background: `url('/images/posts/${props.image}')` }}
+        style={{ background: `url('${props.imageURL}')` }}
       >
         <ImgCategory text={props.category} />{" "}
       </div>
@@ -27,7 +27,12 @@ const singleArticle = props => {
             )}
           </div>
         </div>
-        <div className="article__text">{props.body}</div>
+        <div
+          className="article__text"
+          dangerouslySetInnerHTML={{
+            __html: props.editor
+          }}
+        />
         <div className="button__back__container">
           <Button type="backbutton" text="BACK TO NEWS" />
         </div>
