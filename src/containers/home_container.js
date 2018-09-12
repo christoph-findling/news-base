@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import ReactTimeAgo from "react-time-ago";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BackgroundImage from "react-background-image-loader";
 
 import { getPosts, deleteArticle } from "../actions";
 
@@ -13,19 +14,16 @@ import ImgTitle from "../widgets/imgTitle";
 
 import InfiniteScroll from "react-infinite-scroller";
 
+import BackgroundImagePlaceholder from "../../src/placeholder.gif";
+
 class HomeContainer extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
   loadmore = () => {
-    // this.props.getPosts(this.props.end + 1, this.props.end + 3);
     this.props.getPosts(this.props.start);
   };
-
-  //  deleteArticle = id => {
-  //   this.props.deleteArticle(id);
-  // };
 
   render() {
     let posts = "";
@@ -57,11 +55,11 @@ class HomeContainer extends Component {
               )}
               <Link key={key} to={`article/${post.id}`}>
                 <div key={key} className="home_news_container">
-                  <div
+                  <BackgroundImage
                     className="imageContainer"
-                    style={{
-                      background: `url('${post.imageURL}')`
-                    }}
+                    key={key}
+                    src={post.imageURL}
+                    placeholder={BackgroundImagePlaceholder}
                   >
                     <ImgCategory text={post.category} />
                     <ImgTitle text={post.title} />
@@ -70,7 +68,7 @@ class HomeContainer extends Component {
                       published{" "}
                       <ReactTimeAgo locale="en">{post.date}</ReactTimeAgo>
                     </div>
-                  </div>
+                  </BackgroundImage>
                 </div>
               </Link>
             </div>
