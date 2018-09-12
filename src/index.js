@@ -32,10 +32,13 @@ JavascriptTimeAgo.locale(en);
 library.add(faBars, faCaretLeft, faTrashAlt);
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+//instantiating store outside of render prevents "provider does not
+//support changing 'store' on the fly" issue
+const myStore = createStoreWithMiddleware(reducers);
 
 firebase.auth().onAuthStateChanged(user => {
   ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={myStore}>
       <BrowserRouter>
         <Routes user={user} email={user ? user.email : null} />
       </BrowserRouter>

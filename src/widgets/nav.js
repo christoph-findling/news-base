@@ -17,9 +17,6 @@ const nav = props => {
         <div className="navitems__desktop">
           <ul>
             <li>
-              <Link to="/#">HOME</Link>
-            </li>
-            <li>
               <Link to="/news">NEWS</Link>
             </li>
             {props.user != null ? (

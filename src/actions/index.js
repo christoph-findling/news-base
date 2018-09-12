@@ -5,41 +5,13 @@ import {
   firebase
 } from "../firebase";
 
-export function getPosts(start, end) {
+export function getPosts(start) {
   let posts = [];
-  let startpoint = -9999999999999999;
+  // let startpoint = -9999999999999999;
   let hasPosts = true;
-  if (start) {
-    startpoint = start;
-  }
-
-  // let posts = [];
-  // let startpoint = 0;
-  // let endpoint = 2;
-  // let hasPosts = true;
-  // if (start && end) {
+  // if (start) {
   //   startpoint = start;
-  //   endpoint = end;
   // }
-
-  // return dispatch => {
-  //   firebaseArticles
-  //     .orderByChild("id")
-  //     .startAt(startpoint)
-  //     .endAt(endpoint)
-  //     .once("value")
-  //     .then(snapshot => {
-  //       posts = firebaseLooper(snapshot);
-  //       posts.length > 0 ? "" : (hasPosts = false);
-  //       dispatch({
-  //         type: "GET_ALL_POSTS",
-  //         payload: posts,
-  //         startpoint,
-  //         endpoint,
-  //         hasPosts
-  //       });
-  //     });
-  // };
 
   return dispatch => {
     firebaseArticles
@@ -92,7 +64,6 @@ export function getArticle(id) {
       .once("value")
       .then(snapshot => {
         const article = snapshot.val();
-        console.log(snapshot.val());
         firebase
           .storage()
           .ref("images")
@@ -122,27 +93,21 @@ export function deleteArticle(id) {
       .ref(`articles/${id}`)
       .remove()
       .then(() => {
-        console.log("removed item: " + id);
         dispatch({
           type: "DELETE_ARTICLE",
           id: id
         });
       })
-      .catch(function(error) {
-        console.log("error deleting article " + id + " : " + error);
-      });
+      .catch(function(error) {});
   };
 }
 
 export function registerUser(email, password) {
-  console.log(email + password);
   return dispatch => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        // this.props.history.push("/");
-        console.log("registered user");
         dispatch({
           type: "REGISTER_USER",
           loading: false,
@@ -150,7 +115,6 @@ export function registerUser(email, password) {
         });
       })
       .catch(error => {
-        console.log(error);
         dispatch({
           type: "REGISTER_USER",
           loading: false,

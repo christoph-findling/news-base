@@ -2,7 +2,6 @@ import React from "react";
 // import ProfileContainer from "../containers/home_container";
 
 const Profile = props => {
-  console.log(props.email);
   if (props.email != null) {
     return (
       <div className="profile__container">
@@ -13,7 +12,11 @@ const Profile = props => {
       </div>
     );
   } else {
-    return <div>Access denied. Log in or register to access this page.</div>;
+    return (
+      <div className="access_denied">
+        Access denied. Log in or register to access this page.
+      </div>
+    );
   }
 };
 

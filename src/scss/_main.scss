@@ -68,3 +68,10 @@ body {
   text-align: center;
   @include rem(padding, 1);
 }
+
+//Access denied
+.access_denied {
+  text-align: center;
+  @include rem(padding, 1);
+  @include rem(font-size, 1.5);
+}

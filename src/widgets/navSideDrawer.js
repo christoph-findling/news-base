@@ -11,7 +11,7 @@ const navSideDrawer = props => {
 
   let navItems = [
     {
-      text: "Home",
+      text: "News",
       link: "/"
     },
     {

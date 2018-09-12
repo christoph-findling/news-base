@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getPosts, deleteArticle } from "../actions";
-// import Button from "../widgets/buttons";
+
 import ImgCategory from "../widgets/imgCategory";
 import ImgTitle from "../widgets/imgTitle";
 
@@ -29,7 +29,9 @@ class HomeContainer extends Component {
 
   render() {
     let posts = "";
-    this.props.posts ? (posts = this.props.posts) : "";
+    if (this.props.posts) {
+      posts = this.props.posts;
+    }
     let items = [];
     if (posts) {
       posts.map((post, key) =>
@@ -77,12 +79,6 @@ class HomeContainer extends Component {
       );
     }
 
-    // <Button
-    //   type="loadmorebutton"
-    //   text="Load More Posts"
-    //   loadmore={() => this.loadmore()}
-    // />
-
     return (
       <InfiniteScroll
         pageStart={0}
@@ -96,32 +92,6 @@ class HomeContainer extends Component {
       >
         <div className="home_container">{items}</div>
       </InfiniteScroll>
-      // LOADMORE BUTTON CODE
-      // <div className="home_container">
-      //   {posts
-      //     ? posts.map((post, key) => (
-      //         <div key={key} className="home_news_container">
-      //           <div
-      //             className="imageContainer"
-      //             style={{ background: `url('/images/posts/${post.image}')` }}
-      //           >
-      //             <ImgCategory text={post.category} />
-      //             <ImgTitle text={post.title} />
-      //             <div className="imgAuthor">by {post.author}</div>
-      //             <div className="imgDate">
-      //               published{" "}
-      //               <ReactTimeAgo locale="en">{post.date}</ReactTimeAgo>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       ))
-      //     : ""}
-      //   <Button
-      //     type="loadmorebutton"
-      //     text="Load More Posts"
-      //     loadmore={() => this.loadmore()}
-      //   />
-      // </div>
     );
   }
 }

@@ -168,7 +168,6 @@ class Dashboard extends Component {
     for (let key in this.state.formdata) {
       formIsValid = this.state.formdata[key].valid && formIsValid;
     }
-    console.log(dataToSubmit);
     if (formIsValid) {
       this.setState({
         loading: true,
@@ -203,7 +202,7 @@ class Dashboard extends Component {
                   .ref(`articles/${newArticle.key}`)
                   .update({ negativedate: timestamp })
                   .then(() => {
-                    this.props.history.push("/");
+                    this.props.history.push(`article/${newArticle.key}`);
                   });
               })
               .catch(error => {
@@ -245,38 +244,46 @@ class Dashboard extends Component {
   };
 
   render() {
-    return (
-      <div className="form__container">
-        <form className="news__form" onSubmit={this.submitForm}>
-          <h2>Add News</h2>
-          <Uploader filename={filename => this.storeFilename(filename)} />
+    if (this.props.email != null) {
+      return (
+        <div className="form__container">
+          <form className="news__form" onSubmit={this.submitForm}>
+            <h2>Add News</h2>
+            <Uploader filename={filename => this.storeFilename(filename)} />
 
-          <FormField
-            id={"author"}
-            formdata={this.state.formdata.author}
-            change={element => this.updateForm(element)}
-          />
-          <FormField
-            id={"title"}
-            formdata={this.state.formdata.title}
-            change={element => this.updateForm(element)}
-          />
-          <Editor
-            editorState={this.state.editorState}
-            wrapperClassName="editor__wrapper"
-            editorClassName="editor"
-            onEditorStateChange={this.onEditorStateChange}
-          />
-          <FormField
-            id={"category"}
-            formdata={this.state.formdata.category}
-            change={element => this.updateForm(element)}
-          />
-          {this.showError()}
-          {this.submit()}
-        </form>
-      </div>
-    );
+            <FormField
+              id={"author"}
+              formdata={this.state.formdata.author}
+              change={element => this.updateForm(element)}
+            />
+            <FormField
+              id={"title"}
+              formdata={this.state.formdata.title}
+              change={element => this.updateForm(element)}
+            />
+            <Editor
+              editorState={this.state.editorState}
+              wrapperClassName="editor__wrapper"
+              editorClassName="editor"
+              onEditorStateChange={this.onEditorStateChange}
+            />
+            <FormField
+              id={"category"}
+              formdata={this.state.formdata.category}
+              change={element => this.updateForm(element)}
+            />
+            {this.showError()}
+            {this.submit()}
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div className="access_denied">
+          Access denied. Log in or register to access this page.
+        </div>
+      );
+    }
   }
 }
 export default Dashboard;
