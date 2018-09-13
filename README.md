@@ -6,3 +6,4 @@
 
 Functionalities: 
 User registration, sign in, logged in users can post new news articles and delete them
+NOTE: The app is buggy and needs improvement. The main goal for me was to see how to get the various technologies I used to work together.
