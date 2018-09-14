@@ -164,7 +164,13 @@
     color: white;
     @include rem(padding, 0.8 1.2);
     display: flex;
-    background-color: lightgrey;
+    background-color: rgb(204, 204, 204);
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      background-color: rgb(156, 156, 156);
+    }
   }
   .nav__caretleft {
     @include rem(font-size, 1.8);
@@ -210,10 +216,17 @@
   -webkit-appearance: button;
   @include rem(padding, 0.5 1);
   @include rem(font-size, $buttonSubmitFontSize);
-  background-color: coral;
+  background-color: rgb(250, 137, 96);
   box-sizing: border-box;
   border: none;
   color: white;
+  cursor: pointer;
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+    background-color: rgb(252, 94, 36);
+  }
 }
 .button__delete__article {
   text-transform: none;

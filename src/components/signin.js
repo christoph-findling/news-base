@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FormField from "../widgets/FormFields/formFields";
+import FormField from "../widgets/formFields";
 import { firebase } from "../firebase";
 
 class SignIn extends Component {

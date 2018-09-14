@@ -5,7 +5,8 @@ import { bindActionCreators } from "redux";
 import ReactTimeAgo from "react-time-ago";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BackgroundImage from "react-background-image-loader";
+// BackgroundImage is preventing re-render on item delete
+// import BackgroundImage from "react-background-image-loader";
 
 import { getPosts, deleteArticle } from "../actions";
 
@@ -14,7 +15,7 @@ import ImgTitle from "../widgets/imgTitle";
 
 import InfiniteScroll from "react-infinite-scroller";
 
-import BackgroundImagePlaceholder from "../../src/placeholder.gif";
+// import BackgroundImagePlaceholder from "../../src/placeholder.gif";
 
 class HomeContainer extends Component {
   componentDidMount() {
@@ -23,6 +24,10 @@ class HomeContainer extends Component {
 
   loadmore = () => {
     this.props.getPosts(this.props.start);
+  };
+
+  deleteArticle = id => {
+    this.props.deleteArticle(id);
   };
 
   render() {
@@ -46,7 +51,7 @@ class HomeContainer extends Component {
                 <button
                   className="button__delete__article"
                   id={post.id}
-                  onClick={() => this.props.deleteArticle(post.id)}
+                  onClick={() => this.deleteArticle(post.id)}
                 >
                   <FontAwesomeIcon icon="trash-alt" />
                 </button>
@@ -55,11 +60,9 @@ class HomeContainer extends Component {
               )}
               <Link key={key} to={`article/${post.id}`}>
                 <div key={key} className="home_news_container">
-                  <BackgroundImage
+                  <div
                     className="imageContainer"
-                    key={key}
-                    src={post.imageURL}
-                    placeholder={BackgroundImagePlaceholder}
+                    style={{ background: `url(${post.imageURL})` }}
                   >
                     <ImgCategory text={post.category} />
                     <ImgTitle text={post.title} />
@@ -68,7 +71,7 @@ class HomeContainer extends Component {
                       published{" "}
                       <ReactTimeAgo locale="en">{post.date}</ReactTimeAgo>
                     </div>
-                  </BackgroundImage>
+                  </div>
                 </div>
               </Link>
             </div>

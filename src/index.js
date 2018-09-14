@@ -39,7 +39,7 @@ const myStore = createStoreWithMiddleware(reducers);
 firebase.auth().onAuthStateChanged(user => {
   ReactDOM.render(
     <Provider store={myStore}>
-      <BrowserRouter>
+      <BrowserRouter basename="/projects/newsbase">
         <Routes user={user} email={user ? user.email : null} />
       </BrowserRouter>
     </Provider>,

@@ -7,11 +7,7 @@ import {
 
 export function getPosts(start) {
   let posts = [];
-  // let startpoint = -9999999999999999;
   let hasPosts = true;
-  // if (start) {
-  //   startpoint = start;
-  // }
 
   return dispatch => {
     firebaseArticles

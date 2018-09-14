@@ -25,3 +25,5 @@ yarn-error.log*
 *.png
 images/
 config.js
+build_working
+build

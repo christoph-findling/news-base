@@ -1,5 +1,9 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import { FIREBASE_CONFIG } from "./config";
+
+import "firebase/database";
+import "firebase/auth";
+import "firebase/storage";
 
 firebase.initializeApp(FIREBASE_CONFIG);
 

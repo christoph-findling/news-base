@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FormField from "../widgets/FormFields/formFields";
+import FormField from "../widgets/formFields";
 import {
   firebaseCategories,
   firebaseArticles,
@@ -11,7 +11,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 
-import Uploader from "../widgets/fileuploader/fileuploader";
+import Uploader from "../widgets/fileuploader";
 
 class Dashboard extends Component {
   state = {

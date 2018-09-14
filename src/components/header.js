@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Nav from "../widgets/nav";
 import NavSideDrawer from "../widgets/navSideDrawer";
-import Backdrop from "../widgets/Backdrop/backdrop";
+import Backdrop from "../widgets/backdrop";
 
 class Header extends Component {
   state = {
