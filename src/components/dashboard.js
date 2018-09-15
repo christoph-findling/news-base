@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FormField from "../widgets/formFields";
-import {
-  firebaseCategories,
-  firebaseArticles,
-  firebase,
-  firebaseDB
-} from "../firebase";
+import { firebaseCategories } from "../firebase";
 
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
@@ -86,7 +81,7 @@ class Dashboard extends Component {
 
   componentWillReceiveProps(nextProps) {
     nextProps.postedArticle
-      ? this.props.history.push(`/articles/${nextProps.newArticleKey}`)
+      ? this.props.history.push(`/article/${nextProps.newArticleKey}`)
       : this.setState({ loading: false, postError: nextProps.postError });
   }
 

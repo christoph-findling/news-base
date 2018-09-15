@@ -19,7 +19,8 @@ import InfiniteScroll from "react-infinite-scroller";
 
 class HomeContainer extends Component {
   state = {
-    reRender: true
+    showPrompt: false,
+    id: ""
   };
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -30,9 +31,45 @@ class HomeContainer extends Component {
   };
 
   deleteArticle = id => {
-    this.props.deleteArticle(id);
+    this.setState({
+      showPrompt: true,
+      id
+    });
+
+    // this.props.deleteArticle(id);
   };
 
+  deletePrompt = () => {
+    if (this.state.showPrompt === true) {
+      return (
+        <div className="prompt__delete__wrapper">
+          <div className="prompt__delete">
+            <p>Are you sure you want to delete this Article? </p>
+            <div className="button__wrapper">
+              <button
+                className="button__coral"
+                onClick={() => {
+                  this.props.deleteArticle(this.state.id);
+                  this.setState({ showPrompt: false, id: "" });
+                }}
+              >
+                Yes
+              </button>
+              <div className="spacer" />
+              <button
+                className="button__coral"
+                onClick={() => {
+                  this.setState({ showPrompt: false, id: "" });
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
   render() {
     let posts = "";
     if (this.props.posts) {
@@ -94,7 +131,10 @@ class HomeContainer extends Component {
           </div>
         }
       >
-        <div className="home_container">{items}</div>
+        <div className="home_container">
+          {this.deletePrompt()}
+          {items}
+        </div>
       </InfiniteScroll>
     );
   }

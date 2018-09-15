@@ -135,6 +135,7 @@ export function postArticle(dataToSubmit) {
                     newArticleKey: newArticle.key,
                     postError: ""
                   });
+
                   // this.props.history.push(`article/${newArticle.key}`);
                 });
             })
