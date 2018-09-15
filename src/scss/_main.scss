@@ -75,3 +75,9 @@ body {
   @include rem(padding, 1);
   @include rem(font-size, 1.5);
 }
+
+//Register Error
+.register__error {
+  color: red;
+  @include rem(margin, 0.8 0);
+}

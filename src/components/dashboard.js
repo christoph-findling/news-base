@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import FormField from "../widgets/formFields";
 import {
   firebaseCategories,
@@ -12,6 +14,8 @@ import { EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 
 import Uploader from "../widgets/fileuploader";
+
+import { postArticle } from "../actions";
 
 class Dashboard extends Component {
   state = {
@@ -78,6 +82,12 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.loadCategories();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.postedArticle
+      ? this.props.history.push(`/articles/${nextProps.newArticleKey}`)
+      : this.setState({ loading: false, postError: nextProps.postError });
   }
 
   loadCategories = () => {
@@ -168,54 +178,15 @@ class Dashboard extends Component {
     for (let key in this.state.formdata) {
       formIsValid = this.state.formdata[key].valid && formIsValid;
     }
-    if (formIsValid) {
+    if (formIsValid && this.state.formdata.image.value !== "") {
       this.setState({
         loading: true,
         postError: ""
       });
-      firebaseArticles
-        .orderByChild("id")
-        .limitToLast(1)
-        .once("value")
-        .then(snapshot => {
-          let articleId = null;
-          snapshot.forEach(childSnapshot => {
-            articleId = childSnapshot.val().id;
-          });
-          //set date to firebase timestamp
-          dataToSubmit["date"] = firebase.database.ServerValue.TIMESTAMP;
-          dataToSubmit["negativedate"] = null;
-          //set new article ID
-          articleId <= 0
-            ? (dataToSubmit["id"] = 0)
-            : (dataToSubmit["id"] = articleId + 1);
-          //push new article
-          firebaseArticles.push(dataToSubmit).then(newArticle => {
-            //get newly pushed article for setting negative date
-            firebaseDB
-              .ref(`articles/${newArticle.key}`)
-              .once("value")
-              .then(snapshot => {
-                const article = snapshot.val();
-                const timestamp = article["date"] * -1;
-                firebaseDB
-                  .ref(`articles/${newArticle.key}`)
-                  .update({ negativedate: timestamp })
-                  .then(() => {
-                    this.props.history.push(`article/${newArticle.key}`);
-                  });
-              })
-              .catch(error => {
-                this.setState({
-                  loading: false,
-                  postError: error
-                });
-              });
-          });
-        });
+      this.props.postArticle(dataToSubmit);
     } else {
       this.setState({
-        postError: "Could not add news"
+        postError: "Could not add news. Did you forget to add an image?"
       });
     }
   };
@@ -286,4 +257,22 @@ class Dashboard extends Component {
     }
   }
 }
-export default Dashboard;
+// export default Dashboard;
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ postArticle }, dispatch);
+};
+
+const mapStateToProps = (state, props) => {
+  return {
+    postedArticle: state.postedArticle,
+    postError: state.postError,
+    email: props.email,
+    newArticleKey: state.newArticleKey
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

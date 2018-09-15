@@ -98,6 +98,58 @@ export function deleteArticle(id) {
   };
 }
 
+export function postArticle(dataToSubmit) {
+  return dispatch => {
+    firebaseArticles
+      .orderByChild("id")
+      .limitToLast(1)
+      .once("value")
+      .then(snapshot => {
+        let articleId = null;
+        snapshot.forEach(childSnapshot => {
+          articleId = childSnapshot.val().id;
+        });
+        //set date to firebase timestamp
+        dataToSubmit["date"] = firebase.database.ServerValue.TIMESTAMP;
+        dataToSubmit["negativedate"] = null;
+        //set new article ID
+        articleId <= 0
+          ? (dataToSubmit["id"] = 0)
+          : (dataToSubmit["id"] = articleId + 1);
+        //push new article
+        firebaseArticles.push(dataToSubmit).then(newArticle => {
+          //get newly pushed article for setting negative date
+          firebaseDB
+            .ref(`articles/${newArticle.key}`)
+            .once("value")
+            .then(snapshot => {
+              const article = snapshot.val();
+              const timestamp = article["date"] * -1;
+              firebaseDB
+                .ref(`articles/${newArticle.key}`)
+                .update({ negativedate: timestamp })
+                .then(() => {
+                  dispatch({
+                    type: "POST_ARTICLE",
+                    postedArticle: true,
+                    newArticleKey: newArticle.key,
+                    postError: ""
+                  });
+                  // this.props.history.push(`article/${newArticle.key}`);
+                });
+            })
+            .catch(error => {
+              dispatch({
+                type: "POST_ARTICLE",
+                postedArticle: false,
+                postError: error
+              });
+            });
+        });
+      });
+  };
+}
+
 export function registerUser(email, password) {
   return dispatch => {
     firebase

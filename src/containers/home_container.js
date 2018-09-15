@@ -18,6 +18,9 @@ import InfiniteScroll from "react-infinite-scroller";
 // import BackgroundImagePlaceholder from "../../src/placeholder.gif";
 
 class HomeContainer extends Component {
+  state = {
+    reRender: true
+  };
   componentDidMount() {
     window.scrollTo(0, 0);
   }

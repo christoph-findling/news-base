@@ -30,6 +30,13 @@ export default function(state = {}, action) {
         ...state,
         posts: state.posts.filter(({ id }) => id !== action.id)
       };
+    case "POST_ARTICLE":
+      return {
+        ...state,
+        postedArticle: action.postedArticle,
+        postError: action.postError,
+        newArticleKey: action.newArticleKey
+      };
     default:
       return state;
   }

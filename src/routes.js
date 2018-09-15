@@ -11,7 +11,7 @@ const Routes = props => {
   return (
     <Layout user={props.user}>
       <Switch>
-        <Route path="/articles" component={Article} />
+        <Route path="/articles/" component={Article} />
         <Route path="/article/:id" component={Article} />
         {/* Using the proper way to pass own props down through a route. 
         routeProps are the props the route would pass down anyway. */}
